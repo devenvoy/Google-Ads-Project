@@ -16,6 +16,7 @@ class RecyclerViewAd : AppCompatActivity() {
     lateinit var myAdapter: MyAdapter2
     private val mListItems = ArrayList<Any>()
 
+    // Define the gap/(items) between each Ads
     val ITEMS_PER_AD = 3
 
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -23,15 +24,17 @@ class RecyclerViewAd : AppCompatActivity() {
         binding = ActivityRecyclerViewAdBinding.inflate(layoutInflater)
         setContentView(binding.root)
 
-
-
-        initAdMobAdsSDK();
+        // Intialize AdMob
+        MobileAds.initialize(this) {}
+        // Add Data to your list
         addCountriesData();
+        // Add AdView to your list
         addAdMobBannerAds();
+        // Create adapter and asign adapter to recyclerView
         myAdapter = MyAdapter2(mListItems)
         binding.myRecyclerView.adapter = myAdapter
+        // Start Loading ads
         loadBannerAds();
-
 
     }
 
@@ -109,10 +112,6 @@ class RecyclerViewAd : AppCompatActivity() {
 
         // Load the banner ad.
         adView.loadAd(AdRequest.Builder().build())
-    }
-
-    private fun initAdMobAdsSDK() {
-        MobileAds.initialize(this) {}
     }
 
     override fun onResume() {
